@@ -1,69 +1,37 @@
-function getRandomImage()
-{
-	var Image = Math.floor(Math.random() * (7 - 1) + 1);
-	return '//terraria-z.ru/img/jpg/' + Image.toString() + '.jpg';
-}
+(() => {
+  'use strict';
 
-function makevisible(cur,which)
-{
-	strength=(which==0)? 1 : 0.7
-	if (cur.style.MozOpacity)
-		cur.style.MozOpacity=strength
-	else if (cur.filters)
-		cur.filters.alpha.opacity=strength*600
-}
+  const IMAGE_COUNT = 6;
+  const FALLBACK_IMAGE = '/img/jpg/1.jpg';
+  const picture = document.getElementById('picture');
 
-function disableselect(e){
-	return false
-}
+  if (!picture) {
+    return;
+  }
 
-function reEnable(){
-	return true
-}
+  let fallbackUsed = false;
 
-//if IE4+
-document.onselectstart=new Function ("return false")
+  const reveal = () => {
+    window.requestAnimationFrame(() => {
+      picture.classList.add('is-visible');
+    });
+  };
 
-//if NS6
-if (window.sidebar){
-	document.onmousedown=disableselect
-	document.onclick=reEnable
-}
+  picture.addEventListener('load', reveal);
+  picture.addEventListener('error', () => {
+    if (fallbackUsed) {
+      reveal();
+      return;
+    }
 
-function ejs_nodroit()
-{
-	return(false)
-}
+    fallbackUsed = true;
+    picture.src = FALLBACK_IMAGE;
+  });
 
-document.oncontextmenu = ejs_nodroit;
-	
-	function setOpacity(obj, opacity)
-{
- 	opacity = (opacity == 100)?99.999:opacity;
-	
-	obj.style.filter = "alpha(opacity:"+opacity+")";
-	obj.style.KHTMLOpacity = opacity/100;
-	obj.style.MozOpacity = opacity/100;
-	obj.style.opacity = opacity/100;
-}
+  const imageNumber = Math.floor(Math.random() * IMAGE_COUNT) + 1;
+  picture.src = `/img/jpg/${imageNumber}.jpg`;
 
-function fadePicture(imgID)
-{
-	fadeIn(imgID,0);
-
-	$(imgID).style.visibility = 'visible';
-}
-
-function fadeIn(objID,opacity) 
-{
-	obj = $(objID);
-	if (obj) 
-	{
-		if (opacity <= 100) 
-		{
-			setOpacity(obj, opacity);
-			opacity += 1;
-			window.setTimeout("fadeIn('"+objID+"',"+opacity+")", 17);
-		}
-	}
-}
+  if (picture.complete && picture.naturalWidth > 0) {
+    reveal();
+  }
+})();
