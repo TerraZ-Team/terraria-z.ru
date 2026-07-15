@@ -1,22 +1,30 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<title>| TerraZ | Collective</title>
-<meta name="robots" content="noindex, nofollow">
-<meta charset="utf-8">
-<meta name="keywords" content="terraria, террария, сервер">
-<meta name="description" content="TerraZ - Лучший русскоязычный сервер Terraria">
-<meta http-equiv="cache-control" content="max-age=0" />
-<link href="/css/main.css" rel="stylesheet" type="text/css" />
-<script src="/js/fade.js"></script>
-<script src="/js/main.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="keywords" content="terraria, террария, сервер">
+  <meta name="description" content="TerraZ - Лучший русскоязычный сервер Terraria">
+  <meta http-equiv="cache-control" content="max-age=0">
+  <title>| TerraZ | Collective</title>
+  <link href="/css/main.css" rel="stylesheet">
+  <script src="/js/main.js" defer></script>
 </head>
 <body>
-<div id="portal">
-<a href='https://terraz.ru/'><img style="visibility:hidden; width:350px; height:500px; border:1px solid:#990000;" onload="fadePicture ('picture');" id=picture src='' alt='Нажмите, чтобы войти' title='Нажмите, чтобы войти'></a>
-<script type="text/javascript">
-  document.getElementById("picture").src = getRandomImage();
-</script>
-</div>
+  <main id="portal">
+    <a class="portal-link" href="https://terraz.ru/" aria-label="Перейти на TerraZ">
+      <img
+        id="picture"
+        class="portal-image"
+        src="/img/jpg/1.jpg"
+        width="350"
+        height="500"
+        alt="Нажмите, чтобы войти"
+        title="Нажмите, чтобы войти"
+        decoding="async"
+      >
+    </a>
+  </main>
 </body>
 </html>

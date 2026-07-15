@@ -1,8 +1,487 @@
-<!DOCTYPE html>
- <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>Terraria-Z</title>
-    <meta http-equiv="refresh" content="0; url=https://terraria-z.ru">
-  </head>
- </html>
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#020203">
+  <title>404 | TerraZ</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(111, 0, 16, 0.16), transparent 34%),
+        radial-gradient(circle at 50% 120%, rgba(79, 0, 8, 0.25), transparent 42%),
+        #020203;
+      color: #f3f3f3;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: 8;
+      background: #000;
+      content: "";
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 1.1s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    body.is-leaving::before {
+      opacity: 1;
+    }
+
+    .page {
+      position: relative;
+      display: grid;
+      min-height: 100vh;
+      min-height: 100svh;
+      place-items: center;
+      isolation: isolate;
+      transition:
+        opacity .95s ease,
+        filter .95s ease,
+        transform .95s cubic-bezier(.2, .8, .2, 1);
+    }
+
+    body.is-leaving .page {
+      filter: blur(14px);
+      opacity: 0;
+      transform: scale(1.045);
+    }
+
+    .noise {
+      position: absolute;
+      inset: 0;
+      z-index: -3;
+      opacity: .055;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E");
+    }
+
+    .vignette {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      box-shadow: inset 0 0 18vmax 5vmax #000;
+    }
+
+    .stage {
+      position: relative;
+      width: min(980px, 100vw);
+      height: min(700px, 100svh);
+      min-height: 560px;
+    }
+
+    .message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      z-index: 3;
+      width: min(92vw, 620px);
+      text-align: center;
+      transform: translate(-50%, -50%);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: rgba(255, 255, 255, .48);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .34em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: text-in .7s 2.65s ease forwards;
+    }
+
+    .code {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: clamp(8px, 2vw, 22px);
+      margin: 0;
+      font-size: clamp(100px, 24vw, 210px);
+      font-weight: 900;
+      letter-spacing: -.08em;
+      line-height: .75;
+      text-shadow: 0 0 70px rgba(183, 0, 22, .14);
+    }
+
+    .digit {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: digit-in .85s cubic-bezier(.16, 1, .3, 1) forwards;
+    }
+
+    .digit:first-child {
+      animation-delay: 2.2s;
+    }
+
+    .digit:last-child {
+      animation-delay: 2.36s;
+    }
+
+    .subtitle {
+      margin: 32px 0 0;
+      color: rgba(255, 255, 255, .7);
+      font-size: clamp(15px, 2.2vw, 18px);
+      font-weight: 400;
+      letter-spacing: .02em;
+      opacity: 0;
+      animation: text-in .75s 2.75s ease forwards;
+    }
+
+    .home-link {
+      position: relative;
+      display: inline-block;
+      margin-top: 25px;
+      padding: 8px 2px;
+      color: rgba(255, 255, 255, .48);
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-decoration: none;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: text-in .75s 2.92s ease forwards;
+    }
+
+    .home-link::after {
+      position: absolute;
+      right: 0;
+      bottom: 3px;
+      left: 0;
+      height: 1px;
+      background: rgba(169, 0, 24, .75);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .3s ease;
+    }
+
+    .home-link:hover::after,
+    .home-link:focus-visible::after {
+      transform: scaleX(1);
+    }
+
+    .home-link:focus-visible {
+      outline: 1px solid rgba(255, 255, 255, .65);
+      outline-offset: 5px;
+    }
+
+    .progress {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 4;
+      height: 2px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, .04);
+      opacity: 0;
+      animation: text-in .4s 2.9s ease forwards;
+    }
+
+    .progress::after {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, #9d0017 12%, #e11b35 50%, #9d0017 88%, transparent);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: left;
+      animation: progress 2.15s 3.02s linear forwards;
+    }
+
+    .eye {
+      --delay: 0s;
+      --rotate: 0deg;
+      --size: 116px;
+      position: absolute;
+      z-index: 1;
+      width: var(--size);
+      height: calc(var(--size) * .48);
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .5);
+      border-radius: 100% 0 100% 0;
+      background: linear-gradient(145deg, #fafafa, #aaa 72%, #4a4a4a);
+      box-shadow:
+        0 0 0 1px rgba(0, 0, 0, .8),
+        0 0 34px rgba(154, 0, 21, .16),
+        inset 0 -12px 20px rgba(0, 0, 0, .28);
+      opacity: 0;
+      transform: rotate(calc(45deg + var(--rotate))) scale(.35, 0);
+      animation: eye-open .68s var(--delay) cubic-bezier(.16, 1, .3, 1) forwards;
+      will-change: opacity, transform;
+    }
+
+    .eye::before {
+      position: absolute;
+      inset: -18%;
+      border: 1px solid rgba(147, 0, 20, .24);
+      border-radius: 50%;
+      content: "";
+      transform: rotate(-45deg);
+    }
+
+    .pupil-wrap {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 43%;
+      aspect-ratio: 1;
+      transform: translate(-50%, -50%) rotate(-45deg);
+      transition: transform .12s ease-out;
+      will-change: transform;
+    }
+
+    .iris {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 37% 32%, rgba(255, 255, 255, .92) 0 5%, transparent 6%),
+        radial-gradient(circle, #060606 0 24%, #290006 25% 39%, #9a0018 40% 58%, #2b0007 59% 71%, #050505 72%);
+      box-shadow:
+        0 0 12px rgba(207, 0, 31, .65),
+        inset 0 0 12px rgba(0, 0, 0, .95);
+    }
+
+    .hero-eye {
+      position: relative;
+      top: auto;
+      left: auto;
+      flex: 0 0 clamp(84px, 19vw, 172px);
+      width: clamp(84px, 19vw, 172px);
+      height: clamp(44px, 9vw, 82px);
+      opacity: 0;
+      --delay: 1.92s;
+      --rotate: 0deg;
+      --size: clamp(84px, 19vw, 172px);
+      transform: rotate(45deg) scale(.35, 0);
+      animation-name: hero-eye-open;
+    }
+
+    .eye-1 { top: 9%; left: 9%; --size: 118px; --delay: .12s; --rotate: -11deg; }
+    .eye-2 { top: 8%; right: 11%; --size: 92px; --delay: .34s; --rotate: 8deg; }
+    .eye-3 { top: 33%; left: 2%; --size: 82px; --delay: .58s; --rotate: 18deg; }
+    .eye-4 { top: 35%; right: 1%; --size: 124px; --delay: .82s; --rotate: -8deg; }
+    .eye-5 { bottom: 13%; left: 10%; --size: 104px; --delay: 1.08s; --rotate: 5deg; }
+    .eye-6 { right: 10%; bottom: 11%; --size: 84px; --delay: 1.34s; --rotate: 13deg; }
+    .eye-7 { top: 19%; left: 31%; --size: 65px; --delay: 1.52s; --rotate: -18deg; }
+    .eye-8 { top: 18%; right: 31%; --size: 72px; --delay: 1.7s; --rotate: 15deg; }
+
+    @keyframes eye-open {
+      0% {
+        opacity: 0;
+        transform: rotate(calc(45deg + var(--rotate))) scale(.35, 0);
+      }
+      62% {
+        opacity: 1;
+        transform: rotate(calc(45deg + var(--rotate))) scale(1.06, 1.12);
+      }
+      100% {
+        opacity: .92;
+        transform: rotate(calc(45deg + var(--rotate))) scale(1);
+      }
+    }
+
+    @keyframes hero-eye-open {
+      0% {
+        opacity: 0;
+        transform: rotate(45deg) scale(.35, 0);
+      }
+      62% {
+        opacity: 1;
+        transform: rotate(45deg) scale(1.06, 1.12);
+      }
+      100% {
+        opacity: 1;
+        transform: rotate(45deg) scale(1);
+      }
+    }
+
+    @keyframes digit-in {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes text-in {
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes progress {
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    @media (max-width: 700px) {
+      .stage {
+        min-height: 520px;
+      }
+
+      .eye-1 { top: 8%; left: 4%; --size: 82px; }
+      .eye-2 { top: 11%; right: 4%; --size: 70px; }
+      .eye-3 { top: 35%; left: -7%; --size: 78px; }
+      .eye-4 { top: 36%; right: -8%; --size: 92px; }
+      .eye-5 { bottom: 10%; left: 3%; --size: 82px; }
+      .eye-6 { right: 4%; bottom: 9%; --size: 70px; }
+      .eye-7 { top: 22%; left: 28%; --size: 50px; }
+      .eye-8 { top: 21%; right: 28%; --size: 54px; }
+
+      .subtitle {
+        margin-top: 26px;
+      }
+    }
+
+    @media (max-height: 590px) {
+      .stage {
+        min-height: 480px;
+        transform: scale(.86);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .eye,
+      .hero-eye,
+      .digit,
+      .eyebrow,
+      .subtitle,
+      .home-link,
+      .progress {
+        animation-delay: 0s !important;
+        animation-duration: .01ms !important;
+      }
+
+      .progress::after {
+        animation: none;
+        transform: scaleX(1);
+      }
+
+      .pupil-wrap {
+        transition: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page" aria-labelledby="error-title">
+    <div class="noise" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+
+    <div class="stage">
+      <div class="eye eye-1" aria-hidden="true"><span class="pupil-wrap"><span class="iris"></span></span></div>
+      <div class="eye eye-2" aria-hidden="true"><span class="pupil-wrap"><span class="iris"></span></span></div>
+      <div class="eye eye-3" aria-hidden="true"><span class="pupil-wrap"><span class="iris"></span></span></div>
+      <div class="eye eye-4" aria-hidden="true"><span class="pupil-wrap"><span class="iris"></span></span></div>
+      <div class="eye eye-5" aria-hidden="true"><span class="pupil-wrap"><span class="iris"></span></span></div>
+      <div class="eye eye-6" aria-hidden="true"><span class="pupil-wrap"><span class="iris"></span></span></div>
+      <div class="eye eye-7" aria-hidden="true"><span class="pupil-wrap"><span class="iris"></span></span></div>
+      <div class="eye eye-8" aria-hidden="true"><span class="pupil-wrap"><span class="iris"></span></span></div>
+
+      <section class="message">
+        <p class="eyebrow">Страница растворилась во тьме</p>
+        <h1 id="error-title" class="code">
+          <span class="digit">4</span>
+          <span class="eye hero-eye" aria-label="0"><span class="pupil-wrap"><span class="iris"></span></span></span>
+          <span class="digit">4</span>
+        </h1>
+        <p class="subtitle">Они уже заметили ошибку. Возвращаемся на главную.</p>
+        <a class="home-link" href="/">Не ждать</a>
+      </section>
+    </div>
+
+    <div class="progress" aria-hidden="true"></div>
+  </main>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const HOME_URL = '/';
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const eyes = Array.from(document.querySelectorAll('.eye'));
+      const lastEye = document.querySelector('.hero-eye');
+      let transitionStarted = false;
+
+      const goHome = () => {
+        if (transitionStarted) {
+          return;
+        }
+
+        transitionStarted = true;
+        document.body.classList.add('is-leaving');
+
+        window.setTimeout(() => {
+          window.location.replace(HOME_URL);
+        }, reducedMotion ? 280 : 1120);
+      };
+
+      const scheduleTransition = () => {
+        window.setTimeout(goHome, reducedMotion ? 850 : 2450);
+      };
+
+      if (reducedMotion) {
+        scheduleTransition();
+      } else if (lastEye) {
+        lastEye.addEventListener('animationend', scheduleTransition, { once: true });
+      } else {
+        scheduleTransition();
+      }
+
+      const updateGaze = (clientX, clientY) => {
+        eyes.forEach((eye) => {
+          const pupil = eye.querySelector('.pupil-wrap');
+          if (!pupil) {
+            return;
+          }
+
+          const rect = eye.getBoundingClientRect();
+          const centerX = rect.left + rect.width / 2;
+          const centerY = rect.top + rect.height / 2;
+          const angle = Math.atan2(clientY - centerY, clientX - centerX);
+          const distance = Math.min(rect.width * .09, Math.hypot(clientX - centerX, clientY - centerY) * .035);
+          const x = Math.cos(angle) * distance;
+          const y = Math.sin(angle) * distance;
+
+          pupil.style.transform = `translate(calc(-50% + ${x}px), calc(-50% + ${y}px)) rotate(-45deg)`;
+        });
+      };
+
+      if (!reducedMotion && window.matchMedia('(pointer: fine)').matches) {
+        window.addEventListener('pointermove', (event) => {
+          window.requestAnimationFrame(() => updateGaze(event.clientX, event.clientY));
+        }, { passive: true });
+      }
+
+      const preload = document.createElement('link');
+      preload.rel = 'prefetch';
+      preload.href = HOME_URL;
+      document.head.appendChild(preload);
+    })();
+  </script>
+</body>
+</html>

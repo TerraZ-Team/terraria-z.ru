@@ -1,24 +1,60 @@
+html,
 body {
-	background: #000000 url(/img/bg_quad_2.jpg);
-	background-properties: fixed;
-	background-repeat: no-repeat;
-	background-attachment: fixed;
-	background-position:top center;
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	font-size:10px;
-	font-family:Trebuchet MS;
+  min-height: 100%;
 }
-#portal {
-    top: 60px;
-    right: 0;
-    bottom: 0;
-    left: 0;
 
-	position: absolute;
-    width: 350px;
-    height: 500px;
-	margin: 0 auto;
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background: #000 url('/img/bg_quad_2.jpg') no-repeat fixed top center;
+  font: 10px 'Trebuchet MS', sans-serif;
+}
+
+#portal {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  left: 0;
+  width: 350px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+.portal-link,
+.portal-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.portal-image {
+  box-sizing: border-box;
+  border: 1px solid #990000;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.7s ease;
+}
+
+.portal-image.is-visible {
+  opacity: 1;
+}
+
+@media (max-width: 374px) {
+  #portal {
+    width: calc(100vw - 24px);
+    height: auto;
+    aspect-ratio: 7 / 10;
+  }
+}
+
+@media (max-height: 580px) {
+  #portal {
+    top: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portal-image {
+    transition-duration: 0.01ms;
+  }
 }
